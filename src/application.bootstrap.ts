@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import { Article } from './models/article.js';
 
 async function init () {
   /**
@@ -24,10 +25,11 @@ async function init () {
     console.error('Echec de connexion ', e);
   }
 
-  // l'on peut également envoyer des requêtes "pures" à la base de données.
-  // ici on demande à mysql de récupérer les bases de données.
-  const result = await connection.query('SHOW DATABASES');
-  console.log(result);
+  // on crée une instance d'un article
+  const article = new Article();
+  article.content = 'La population de Gilles en augmentation à Binche';
+  article.description = 'Un article constructif sur la population de Gilles à Binche';
+  await connection.manager.save(article);
 }
 
 init();
