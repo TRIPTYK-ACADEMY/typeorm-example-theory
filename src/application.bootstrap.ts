@@ -26,10 +26,19 @@ async function init () {
   }
 
   // on crée une instance d'un article
-  const article = new Article();
-  article.content = 'La population de Gilles en augmentation à Binche';
-  article.description = 'Un article constructif sur la population de Gilles à Binche';
-  await connection.manager.save(article);
+  //   const article = new Article();
+  //   article.content = 'Jésus est de retour parmis nous';
+  //   article.description = 'Jésus reviens parmis les siens';
+  //   await connection.manager.save(article);
+  // préférable avec une condition
+  //   const article = await connection.manager.find(Article);
+
+  // on récupère le repository pour l'entité Article
+  const articleRepository = connection.manager.getRepository(Article);
+
+  const articles = await articleRepository.find();
+
+  console.log(articles);
 }
 
 init();
